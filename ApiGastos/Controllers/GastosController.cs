@@ -252,7 +252,7 @@ namespace ApiGastos.Controllers
                     DbContext.SaveChanges();
                 }
 
-                return Ok(gasto);
+                return Ok(nuevoGasto);
 
             }
             catch (Exception ex)
