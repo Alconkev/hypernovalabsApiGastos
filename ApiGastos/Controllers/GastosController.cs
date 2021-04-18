@@ -65,9 +65,8 @@ namespace ApiGastos.Controllers
 
 
         // GET api/values/5
-        [Route("getGastoById")]
         [HttpGet("{id}")]
-        public ActionResult getGastoById(int id)
+        public ActionResult get(int id)
         {
             try
             {
@@ -102,13 +101,13 @@ namespace ApiGastos.Controllers
                         return BadRequest("error, no hay detalles del gasto");
                     }
 
-                    List<detalles> losDetalles = new List<detalles>();
+                    List<responseDetalles> losDetalles = new List<responseDetalles>();
 
                     for (int i = 0; i < detallesDelGasto.Count; i++)
                     {
-                        detalles detalleInformacion = new detalles
+                        responseDetalles detalleInformacion = new responseDetalles
                         {
-                            fecha = detallesDelGasto[i].fecha,
+                            fecha = detallesDelGasto[i].fecha.ToString("yyyy-MM-dd"),
                             cuenta = detallesDelGasto[i].cuenta,
                             descripcion = detallesDelGasto[i].descripcion,
                             total = detallesDelGasto[i].monto
@@ -121,8 +120,8 @@ namespace ApiGastos.Controllers
                     {
 
                         concepto = gasto.concepto,
-                        fechadesde = gasto.desde.ToString(),
-                        fechahasta = gasto.hasta.ToString(),
+                        fechadesde = gasto.desde.ToString("yyyy-MM-dd"),
+                        fechahasta = gasto.hasta.ToString("yyyy-MM-dd"),
                         nombre = empleado.nombre,
                         empleadoId = empleado.id,
                         departamento = departamento.nombre,
@@ -297,7 +296,7 @@ namespace ApiGastos.Controllers
         public int supervisorId { get; set; }
         public string supervisor { get; set; }
 
-        public List<detalles> detallesgasto { get; set; }
+        public List<responseDetalles> detallesgasto { get; set; }
 
         public string aprobado { get; set; }
 
@@ -308,6 +307,13 @@ namespace ApiGastos.Controllers
     public class detalles
     {
         public DateTime fecha { get; set; }
+        public string cuenta { get; set; }
+        public string descripcion { get; set; }
+        public double total { get; set; }
+    }
+
+    public class responseDetalles {
+        public string fecha { get; set; }
         public string cuenta { get; set; }
         public string descripcion { get; set; }
         public double total { get; set; }
